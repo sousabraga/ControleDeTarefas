@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Lista de usuários</title>
+	</h:head>
+	
+	<h:body>
+		<h1>Lista de usuários</h1>
+		
+		<h:form>
+			<h:dataTable value="#{usuarioBean.usuarios}" var="usuario">
+				<h:column>
+					<f:facet name="header">E-mail</f:facet>
+					#{usuario.email}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Login</f:facet>
+					#{usuario.login}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Ações</f:facet>
+					<h:commandButton value="Editar"/>
+					<h:commandButton value="Excluir" action="#{usuarioBean.delete}"/>
+				</h:column>
+			</h:dataTable>
+		
+			<h:commandButton value="Novo Usuário" action="cadastroUsuario"/>
+		</h:form>
+	</h:body>
+	
+</html>
