@@ -14,15 +14,20 @@
 		<h1>Cadastro de Usuários</h1>
 		
 		<h:form>
+			<h:messages/>
 			<h:panelGrid columns="2">
 				<h:outputLabel value="E-mail:" for="inputEmail" />
-				<h:inputText id="inputEmail" value="#{usuarioBean.usuario.email}"/>
+				<h:inputText label="E-mail" id="inputEmail" value="#{usuarioBean.usuario.email}" required="true"/>
 				
 				<h:outputLabel value="Login:" for="inputLogin"/>
-				<h:inputText id="inputLogin" value="#{usuarioBean.usuario.login}"/>
+				<h:inputText label="Login" id="inputLogin" value="#{usuarioBean.usuario.login}" required="true">
+					<f:validateLength minimum="5"/>
+				</h:inputText>
 				
 				<h:outputLabel value="Senha:" for="inputSenha"/>
-				<h:inputSecret id="inputSenha" value="#{usuarioBean.usuario.senha}"/>
+				<h:inputSecret label="Senha" id="inputSenha" value="#{usuarioBean.usuario.senha}" required="true">
+					<f:validateLength minimum="5"/>
+				</h:inputSecret>
 				
 				<h:commandButton value="Cadastrar Usuário" action="#{usuarioBean.adiciona(usuarioBean.usuario)}"/>
 			</h:panelGrid>

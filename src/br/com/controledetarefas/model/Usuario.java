@@ -4,14 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.sun.istack.internal.NotNull;
+
 @Entity
 public class Usuario {
-
+	
 	@Id @GeneratedValue
 	private Long id;
 	
+	@NotNull
 	private String email;
+	
+	@NotNull
 	private String login;
+	
+	@NotNull
 	private String senha;
 	
 	public Long getId() {

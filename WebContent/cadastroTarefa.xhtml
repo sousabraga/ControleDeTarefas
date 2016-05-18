@@ -14,21 +14,32 @@
 		<h1>Cadastro de Tarefas</h1>
 		
 		<h:form>
+			<h:messages/>
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Título:" for="inputTitulo"/>
-				<h:inputText id="inputTitulo" value="#{tarefaBean.tarefa.titulo}"/>
+				<h:inputText label="Título" id="inputTitulo" value="#{tarefaBean.tarefa.titulo}" required="true">
+					<f:validateLength minimum="5"/>
+				</h:inputText>
 				
 				<h:outputLabel value="Descrição:" for="inputDescricao"/>
-				<h:inputText id="inputDescricao" value="#{tarefaBean.tarefa.descricao}"/>
+				<h:inputText label="Descrição" id="inputDescricao" value="#{tarefaBean.tarefa.descricao}" required="true">
+					<f:validateLength minimum="5"/>
+				</h:inputText>
 				
 				<h:outputLabel value="Data Início:" for="inputDataInicio"/>
-				<h:inputText id="inputDataInicio" value="#{tarefaBean.tarefa.dataInicio}"/>
+				<h:inputText label="Data Início" id="inputDataInicio" value="#{tarefaBean.tarefa.dataInicio}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:inputText>
 				
 				<h:outputLabel value="Data Prazo:" for="inputDataPrazo"/>
-				<h:inputText id="inputDataPrazo" value="#{tarefaBean.tarefa.dataPrazo}"/>
+				<h:inputText label="Data Prazo" id="inputDataPrazo" value="#{tarefaBean.tarefa.dataPrazo}" required="true">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:inputText>
 				
 				<h:outputLabel value="Data Finalização:" for="inputDataFinalizacao"/>
-				<h:inputText id="inputDataFinalizacao" value="#{tarefaBean.tarefa.dataFinalizacao}"/>
+				<h:inputText label="Data Finalização" id="inputDataFinalizacao" value="#{tarefaBean.tarefa.dataFinalizacao}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:inputText>
 				
 				<h:commandButton value="Cadastrar Tarefa" action="#{tarefaBean.adiciona(tarefaBean.tarefa)}"/>
 			</h:panelGrid>

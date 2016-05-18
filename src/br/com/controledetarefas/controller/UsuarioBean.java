@@ -19,24 +19,28 @@ public class UsuarioBean {
 		return this.usuario;
 	}
 	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 	public String adiciona(Usuario usuario) {
 		EntityManager manager = ManagerFactoryJPA.getEntityManager();
 		manager.getTransaction().begin();
 		manager.persist(usuario);
 		manager.getTransaction().commit();
 		manager.close();
-		return "listaUsuarios";
+		return "listaUsuarios?faces-redirect=true";
 	}
 	
 	public List<Usuario> getUsuarios() {
 		if (this.usuarios == null) {
 			EntityManager manager = ManagerFactoryJPA.getEntityManager();
 			manager.getTransaction().begin();
-			Query query = manager.createQuery("SELECT a FROM Usuario a", Usuario.class);
+			Query query = manager.createNamedQuery("SELECT a FROM Usuario a", Usuario.class);
 			this.usuarios = query.getResultList();
 			manager.close();
 		}
-		
+			
 		return this.usuarios;
 	}
 	
@@ -47,7 +51,7 @@ public class UsuarioBean {
 		manager.remove(usuario);
 		manager.getTransaction().commit();
 		manager.close();
-		return "listaUsuarios";
+		return "listaUsuarios?faces-redirect=true";
 	}
 	
 }

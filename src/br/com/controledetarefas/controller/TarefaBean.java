@@ -19,13 +19,17 @@ public class TarefaBean {
 		return this.tarefa;
 	}
 	
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
+	
 	public String adiciona(Tarefa tarefa) {
 		EntityManager manager = ManagerFactoryJPA.getEntityManager();
 		manager.getTransaction().begin();
 		manager.persist(tarefa);
 		manager.getTransaction().commit();
 		manager.close();
-		return "listaTarefas";
+		return "listaTarefas?faces-redirect=true";
 	}
 	
 	public List<Tarefa> getTarefas() {
@@ -47,6 +51,6 @@ public class TarefaBean {
 		manager.remove(tarefa);
 		manager.getTransaction().commit();
 		manager.close();
-		return "listaTarefas";
+		return "listaTarefas?faces-redirect=true";
 	}
 }

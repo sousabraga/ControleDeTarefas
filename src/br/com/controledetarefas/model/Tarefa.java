@@ -1,14 +1,13 @@
 package br.com.controledetarefas.model;
 
-import java.time.LocalDate;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import com.sun.istack.internal.NotNull;
 
 @Entity
 public class Tarefa {
@@ -16,17 +15,19 @@ public class Tarefa {
 	@Id @GeneratedValue
 	private Long id;
 	
+	@NotNull
 	private String titulo;
+
+	@NotNull
 	private String descricao;
 	
-	@Temporal(TemporalType.DATE)
-	private Calendar dataInicio;
+	@NotNull
+	private Date dataInicio;
 	
-	@Temporal(TemporalType.DATE)
-	private Calendar dataPrazo;
+	@NotNull
+	private Date dataPrazo;
 	
-	@Temporal(TemporalType.DATE)
-	private Calendar dataFinalizacao;
+	private Date dataFinalizacao;
 	
 	@ManyToOne
 	private Usuario usuario;
@@ -55,27 +56,27 @@ public class Tarefa {
 		this.descricao = descricao;
 	}
 	
-	public Calendar getDataInicio() {
+	public Date getDataInicio() {
 		return this.dataInicio;
 	}
 	
-	public void setDataInicio(Calendar dataInicio) {
+	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 	
-	public Calendar getDataPrazo() {
+	public Date getDataPrazo() {
 		return this.dataPrazo;
 	}
 	
-	public void setDataPrazo(Calendar dataPrazo) {
+	public void setDataPrazo(Date dataPrazo) {
 		this.dataPrazo = dataPrazo;
 	}
 	
-	public Calendar getDataFinalizacao() {
+	public Date getDataFinalizacao() {
 		return this.dataFinalizacao;
 	}
 	
-	public void setDataFinalizacao(Calendar dataFinalizacao) {
+	public void setDataFinalizacao(Date dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
 	}
 

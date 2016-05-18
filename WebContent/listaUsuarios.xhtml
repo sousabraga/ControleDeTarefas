@@ -15,24 +15,26 @@
 		
 		<h:form>
 			<h:dataTable value="#{usuarioBean.usuarios}" var="usuario">
+				<h:inputHidden value="#{usuario.id}"/>
+			
 				<h:column>
 					<f:facet name="header">E-mail</f:facet>
-					#{usuario.email}
+					<h:outputText value="#{usuario.email}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Login</f:facet>
-					#{usuario.login}
+					<h:outputText value="#{usuario.login}"/>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Ações</f:facet>
 					<h:commandButton value="Editar"/>
-					<h:commandButton value="Excluir" action="#{usuarioBean.delete}"/>
+					<h:commandButton value="Excluir" action="#{usuarioBean.delete(usuario)}"/>
 				</h:column>
 			</h:dataTable>
 		
-			<h:commandButton value="Novo Usuário" action="cadastroUsuario"/>
+			<h:commandButton value="Novo Usuário" action="cadastroUsuario?faces-redirect=true"/>
 		</h:form>
 	</h:body>
 	
