@@ -5,57 +5,58 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Lista de Tarefas</title>
-	</head>
-	<body>
-		<h1>Lista de Tarefas</h1>
-		
-		<h:form>
-			<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa">
-				<h:inputHidden value="#{tarefa.id}"/>
-				
-				<h:column>
-					<f:facet name="header">Título</f:facet>
-					<h:outputText value="#{tarefa.titulo}"/>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Descrição</f:facet>
-					<h:outputText value="#{tarefa.descricao}"/>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Data de início</f:facet>
-					<h:outputText value="#{tarefa.dataInicio}">
-						<f:convertDateTime pattern="dd/MM/yyyy"/>
-					</h:outputText>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Data de prazo</f:facet>
-					<h:outputText value="#{tarefa.dataPrazo}">
-						<f:convertDateTime pattern="dd/MM/yyyy"/>
-					</h:outputText>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Data de finalização</f:facet>
-					<h:outputText value="#{tarefa.dataFinalizacao}">
-						<f:convertDateTime pattern="dd/MM/yyyy"/>
-					</h:outputText>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Ações</f:facet>
-					<h:commandButton value="Editar"/>
-					<h:commandButton value="Excluir"/>
-				</h:column>
-			</h:dataTable>
+	<ui:composition template="_template.xhtml">
+	
+		<ui:define name="title">Lista de Tarefas</ui:define>
+	
+		<ui:define name="body">
+			<h1>Lista de Tarefas</h1>
 			
-			<h:commandButton value="Nova Tarefa" action="cadastroTarefa?faces-redirect=true"/>
-		</h:form>
-	</body>
+			<h:form>
+				<h:dataTable value="#{tarefaBean.tarefas}" var="tarefa">
+					<h:inputHidden value="#{tarefa.id}"/>
+					
+					<h:column>
+						<f:facet name="header">Título</f:facet>
+						<h:outputText value="#{tarefa.titulo}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Descrição</f:facet>
+						<h:outputText value="#{tarefa.descricao}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Data de início</f:facet>
+						<h:outputText value="#{tarefa.dataInicio}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Data de prazo</f:facet>
+						<h:outputText value="#{tarefa.dataPrazo}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Data de finalização</f:facet>
+						<h:outputText value="#{tarefa.dataFinalizacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Ações</f:facet>
+						<h:commandButton value="Editar"/>
+						<h:commandButton value="Excluir"/>
+					</h:column>
+				</h:dataTable>
+				
+				<h:commandButton value="Nova Tarefa" action="cadastroTarefa?faces-redirect=true"/>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 	
 </html>

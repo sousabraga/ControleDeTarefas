@@ -5,37 +5,37 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 	
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Lista de usuários</title>
-	</h:head>
-	
-	<h:body>
-		<h1>Lista de usuários</h1>
+	<ui:composition template="_template.xhtml">
 		
-		<h:form>
-			<h:dataTable value="#{usuarioBean.usuarios}" var="usuario">
-				<h:inputHidden value="#{usuario.id}"/>
+		<ui:define name="title">Lista de Usuários</ui:define>
+		
+		<ui:define name="body">
+			<h1>Lista de usuários</h1>
 			
-				<h:column>
-					<f:facet name="header">E-mail</f:facet>
-					<h:outputText value="#{usuario.email}"/>
-				</h:column>
+			<h:form>
+				<h:dataTable value="#{usuarioBean.usuarios}" var="usuario">
+					<h:inputHidden value="#{usuario.id}"/>
 				
-				<h:column>
-					<f:facet name="header">Login</f:facet>
-					<h:outputText value="#{usuario.login}"/>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Ações</f:facet>
-					<h:commandButton value="Editar"/>
-					<h:commandButton value="Excluir" action="#{usuarioBean.delete(usuario)}"/>
-				</h:column>
-			</h:dataTable>
-		
-			<h:commandButton value="Novo Usuário" action="cadastroUsuario?faces-redirect=true"/>
-		</h:form>
-	</h:body>
+					<h:column>
+						<f:facet name="header">E-mail</f:facet>
+						<h:outputText value="#{usuario.email}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Login</f:facet>
+						<h:outputText value="#{usuario.login}"/>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Ações</f:facet>
+						<h:commandButton value="Editar"/>
+						<h:commandButton value="Excluir" action="#{usuarioBean.delete(usuario)}"/>
+					</h:column>
+				</h:dataTable>
+			
+				<h:commandButton value="Novo Usuário" action="cadastroUsuario?faces-redirect=true"/>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 	
 </html>
