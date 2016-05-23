@@ -49,8 +49,8 @@
 					
 					<h:column>
 						<f:facet name="header">Ações</f:facet>
-						<h:commandButton value="Editar"/>
-						<h:commandButton value="Excluir"/>
+						<h:commandButton value="Editar" action="editarTarefa" actionListener="#{tarefaBean.selecionarRegistro}"/>
+						<h:commandButton value="Excluir" action="#{tarefaBean.delete(tarefa)}"/>
 					</h:column>
 				</h:dataTable>
 				

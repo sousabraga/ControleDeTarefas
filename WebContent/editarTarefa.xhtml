@@ -7,10 +7,10 @@
 	
 	<ui:composition template="_template.xhtml">
 	
-		<ui:define name="title">Cadastro de Tarefas</ui:define>
+		<ui:define name="title">Editar Tarefa</ui:define>
 	
 		<ui:define name="body">
-			<h1>Cadastro de Tarefas</h1>
+			<h1>Editar Tarefa</h1>
 			
 			<h:form>
 				<h:messages/>
@@ -43,7 +43,7 @@
 				</h:panelGrid>
 				
 				<br/>
-				<h:commandButton value="Cadastrar Tarefa" action="#{tarefaBean.adiciona(tarefaBean.tarefa)}"/>
+				<h:commandButton value="Atualizar Tarefa" action="#{tarefaBean.adiciona(tarefaBean.tarefa)}"/>
 				<br/>
 			
 			</h:form>

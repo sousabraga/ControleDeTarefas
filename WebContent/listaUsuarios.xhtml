@@ -28,12 +28,14 @@
 					
 					<h:column>
 						<f:facet name="header">Ações</f:facet>
-						<h:commandButton value="Editar"/>
+						<h:commandButton value="Editar" action="editarUsuario" actionListener="#{usuarioBean.selecionarRegistro}"/>
 						<h:commandButton value="Excluir" action="#{usuarioBean.delete(usuario)}"/>
 					</h:column>
 				</h:dataTable>
-			
+				
+				<br/>
 				<h:commandButton value="Novo Usuário" action="cadastroUsuario?faces-redirect=true"/>
+				<br/>
 			</h:form>
 		</ui:define>
 	</ui:composition>

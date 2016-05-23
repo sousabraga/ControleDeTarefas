@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<ui:composition template="_template.xhtml">
+
+		<ui:define name="title">Editar Usuário</ui:define>
+
+		<ui:define name="body">
+			<h1>Editar Usuário</h1>
+			
+			<h:form>
+				<h:messages/>
+				
+				<h:inputHidden value="#{usuarioBean.usuario.id}"/>
+				
+				<h:panelGrid columns="2">
+					<h:outputLabel value="E-mail:" for="inputEmail" />
+					<h:inputText label="E-mail" id="inputEmail" value="#{usuarioBean.usuario.email}" required="true"/>
+					
+					<h:outputLabel value="Login:" for="inputLogin"/>
+					<h:inputText label="Login" id="inputLogin" value="#{usuarioBean.usuario.login}" required="true">
+						<f:validateLength minimum="5"/>
+					</h:inputText>
+					
+					<h:outputLabel value="Senha:" for="inputSenha"/>
+					<h:inputText label="Senha" id="inputSenha" value="#{usuarioBean.usuario.senha}" required="true">
+						<f:validateLength minimum="5"/>
+					</h:inputText>
+					
+					<h:commandButton value="Atualizar Usuário" action="#{usuarioBean.altera(usuarioBean.usuario)}"/>
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+	
+</html>

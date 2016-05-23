@@ -1,8 +1,9 @@
 package br.com.controledetarefas.controller;
 
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -13,7 +14,7 @@ import br.com.controledetarefas.util.ManagerFactoryJPA;
 public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
-	private List<Usuario> usuarios;
+	private DataModel<Usuario> usuarios;
 	
 	public Usuario getUsuario() {
 		return this.usuario;
@@ -32,16 +33,30 @@ public class UsuarioBean {
 		return "listaUsuarios?faces-redirect=true";
 	}
 	
-	public List<Usuario> getUsuarios() {
+	public DataModel<Usuario> getUsuarios() {
 		if (this.usuarios == null) {
 			EntityManager manager = ManagerFactoryJPA.getEntityManager();
 			manager.getTransaction().begin();
-			Query query = manager.createNamedQuery("SELECT a FROM Usuario a", Usuario.class);
-			this.usuarios = query.getResultList();
+			Query query = manager.createQuery("SELECT a FROM Usuario a", Usuario.class);
+			this.usuarios = new ListDataModel<Usuario>(query.getResultList());
 			manager.close();
 		}
 			
 		return this.usuarios;
+	}
+	
+	public void selecionarRegistro() {
+		this.usuario = this.usuarios.getRowData();
+	}
+	
+	public String altera(Usuario usuario) {
+		EntityManager manager = ManagerFactoryJPA.getEntityManager();
+		manager.getTransaction().begin();
+		usuario = manager.merge(usuario);
+		manager.persist(usuario);
+		manager.getTransaction().commit();
+		manager.close();
+		return "listaUsuarios?faces-redirect=true";
 	}
 	
 	public String delete(Usuario usuario) {

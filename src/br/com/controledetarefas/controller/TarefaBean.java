@@ -1,8 +1,8 @@
 package br.com.controledetarefas.controller;
 
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -13,7 +13,7 @@ import br.com.controledetarefas.util.ManagerFactoryJPA;
 public class TarefaBean {
 
 	private Tarefa tarefa = new Tarefa();
-	private List<Tarefa> tarefas;
+	private DataModel<Tarefa> tarefas;
 	
 	public Tarefa getTarefa() {
 		return this.tarefa;
@@ -32,16 +32,30 @@ public class TarefaBean {
 		return "listaTarefas?faces-redirect=true";
 	}
 	
-	public List<Tarefa> getTarefas() {
+	public DataModel<Tarefa> getTarefas() {
 		if (this.tarefas == null) {
 			EntityManager manager = ManagerFactoryJPA.getEntityManager();
 			manager.getTransaction().begin();
 			Query query = manager.createQuery("SELECT a FROM Tarefa a", Tarefa.class);
-			this.tarefas = query.getResultList();
+			this.tarefas = new ListDataModel<Tarefa>(query.getResultList());
 			manager.close();
 		}
 		
 		return this.tarefas;
+	}
+	
+	public void selecionarRegistro() {
+		this.tarefa = this.tarefas.getRowData();
+	}
+	
+	public String altera(Tarefa tarefa) {
+		EntityManager manager = ManagerFactoryJPA.getEntityManager();
+		manager.getTransaction().begin();
+		tarefa = manager.merge(tarefa);
+		manager.persist(tarefa);
+		manager.getTransaction().commit();
+		manager.close();
+		return "listaTarefas?faces-redirect=true";
 	}
 	
 	public String delete(Tarefa tarefa) {
