@@ -6,6 +6,7 @@ import javax.faces.model.ListDataModel;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.com.controledetarefas.dao.TarefaDAO;
 import br.com.controledetarefas.model.Tarefa;
 import br.com.controledetarefas.util.ManagerFactoryJPA;
 
@@ -13,6 +14,7 @@ import br.com.controledetarefas.util.ManagerFactoryJPA;
 public class TarefaBean {
 
 	private Tarefa tarefa = new Tarefa();
+	private TarefaDAO dao = new TarefaDAO();
 	private DataModel<Tarefa> tarefas;
 	
 	public Tarefa getTarefa() {
@@ -24,23 +26,14 @@ public class TarefaBean {
 	}
 	
 	public String adiciona(Tarefa tarefa) {
-		EntityManager manager = ManagerFactoryJPA.getEntityManager();
-		manager.getTransaction().begin();
-		manager.persist(tarefa);
-		manager.getTransaction().commit();
-		manager.close();
+		dao.adiciona(tarefa);
 		return "listaTarefas?faces-redirect=true";
 	}
 	
 	public DataModel<Tarefa> getTarefas() {
-		if (this.tarefas == null) {
-			EntityManager manager = ManagerFactoryJPA.getEntityManager();
-			manager.getTransaction().begin();
-			Query query = manager.createQuery("SELECT a FROM Tarefa a", Tarefa.class);
-			this.tarefas = new ListDataModel<Tarefa>(query.getResultList());
-			manager.close();
-		}
-		
+		if (this.tarefas == null) 
+			this.tarefas = dao.getTarefas();
+
 		return this.tarefas;
 	}
 	
@@ -49,22 +42,12 @@ public class TarefaBean {
 	}
 	
 	public String altera(Tarefa tarefa) {
-		EntityManager manager = ManagerFactoryJPA.getEntityManager();
-		manager.getTransaction().begin();
-		tarefa = manager.merge(tarefa);
-		manager.persist(tarefa);
-		manager.getTransaction().commit();
-		manager.close();
+		dao.altera(tarefa);
 		return "listaTarefas?faces-redirect=true";
 	}
 	
 	public String delete(Tarefa tarefa) {
-		EntityManager manager = ManagerFactoryJPA.getEntityManager();
-		manager.getTransaction().begin();
-		tarefa = manager.merge(tarefa);
-		manager.remove(tarefa);
-		manager.getTransaction().commit();
-		manager.close();
+		dao.delete(tarefa);
 		return "listaTarefas?faces-redirect=true";
 	}
 }

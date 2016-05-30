@@ -1,19 +1,18 @@
 package br.com.controledetarefas.controller;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
+import br.com.controledetarefas.dao.UsuarioDAO;
 import br.com.controledetarefas.model.Usuario;
-import br.com.controledetarefas.util.ManagerFactoryJPA;
 
 @ManagedBean
 public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
+	private UsuarioDAO dao = new UsuarioDAO();
 	private DataModel<Usuario> usuarios;
 	
 	public Usuario getUsuario() {
@@ -25,22 +24,13 @@ public class UsuarioBean {
 	}
 	
 	public String adiciona(Usuario usuario) {
-		EntityManager manager = ManagerFactoryJPA.getEntityManager();
-		manager.getTransaction().begin();
-		manager.persist(usuario);
-		manager.getTransaction().commit();
-		manager.close();
+		dao.adiciona(usuario);
 		return "listaUsuarios?faces-redirect=true";
 	}
 	
 	public DataModel<Usuario> getUsuarios() {
-		if (this.usuarios == null) {
-			EntityManager manager = ManagerFactoryJPA.getEntityManager();
-			manager.getTransaction().begin();
-			Query query = manager.createQuery("SELECT a FROM Usuario a", Usuario.class);
-			this.usuarios = new ListDataModel<Usuario>(query.getResultList());
-			manager.close();
-		}
+		if (this.usuarios == null) 
+			this.usuarios = dao.getUsuarios();
 			
 		return this.usuarios;
 	}
@@ -50,23 +40,25 @@ public class UsuarioBean {
 	}
 	
 	public String altera(Usuario usuario) {
-		EntityManager manager = ManagerFactoryJPA.getEntityManager();
-		manager.getTransaction().begin();
-		usuario = manager.merge(usuario);
-		manager.persist(usuario);
-		manager.getTransaction().commit();
-		manager.close();
+		dao.altera(usuario);
 		return "listaUsuarios?faces-redirect=true";
 	}
 	
 	public String delete(Usuario usuario) {
-		EntityManager manager = ManagerFactoryJPA.getEntityManager();
-		manager.getTransaction().begin();
-		usuario = manager.merge(usuario);
-		manager.remove(usuario);
-		manager.getTransaction().commit();
-		manager.close();
+		dao.delete(usuario);
 		return "listaUsuarios?faces-redirect=true";
+	}
+	
+	public String autenticarUsuario(Usuario usuario) {
+		Usuario usuarioLogado = dao.autenticarUsuario(usuario);
+		
+		if (usuarioLogado != null) {
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuarioLogado", usuarioLogado);
+			return "listaTarefas?faces-redirect=true";
+		} else {
+			FacesContext.getCurrentInstance().addMessage("Error", new FacesMessage("Usuário e/ou senha incorretos!"));
+			return "login";
+		}
 	}
 	
 }
